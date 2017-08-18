@@ -9,8 +9,20 @@
 <body>
 <div id="example"></div>
 <script type="text/babel">
+
+    class Welcome extends React.Component {
+        render() {
+            return <h1>Hello, {this.props.name}</h1>;
+        }
+    }
+
+    var arr = [
+        <h1>First</h1>,
+        <h2>Second</h2>,
+        <h3>Life is simple, you make the choice and you don't look back.</h3>
+    ];
     ReactDOM.render(
-            <h1>Hello, world!</h1>,
+            <div><div>{arr}</div><Welcome name="LALALA" /></div>,
         document.getElementById('example')
     );
 </script>

@@ -58,8 +58,7 @@
         );
     }
 
-    class Comment extends React.Component(){
-        render(){
+    function Comment(props){
             return (
                     <div className="Comment">
                         <UserInfo user={props.author} />
@@ -71,7 +70,6 @@
                         </div>
                     </div>
             );
-        }
     }
 
 
