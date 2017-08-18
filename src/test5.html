@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    var  comment = {
+        date: new Date(),
+        text: 'I hope you enjoy learning React!',
+        author: {
+            name: 'Hello Kitty',
+            avatarUrl: 'http://placekitten.com/g/64/64'
+        }
+    };
+
+    class Clickinput extends React.Component{
+
+        handleClick () {
+            comment.text = 'he he he'
+            Comment(comment)
+        };
+
+        render() {
+            return (
+                    <button onClick={this.handleClick}>
+                        Click me
+                    </button>
+            );
+        }
+    }
+
+    function formatDate(date) {
+        return date.toLocaleDateString();
+    }
+
+    function Avatar(props) {
+        return (
+                <img className="Avatar"
+                     src={props.user.avatarUrl}
+                     alt={props.user.name} />
+        );
+    }
+
+    function UserInfo(props) {
+        return (
+                <div className="UserInfo">
+                    <Avatar user={props.user} />
+                    <div className="UserInfo-name">
+                        {props.user.name}
+                    </div>
+                </div>
+        );
+    }
+
+    class Comment extends React.Component(){
+        render(){
+            return (
+                    <div className="Comment">
+                        <UserInfo user={props.author} />
+                        <div className="Comment-text">
+                            {props.text}
+                        </div>
+                        <div className="Comment-date">
+                            {formatDate(props.date)}
+                        </div>
+                    </div>
+            );
+        }
+    }
+
+
+    ReactDOM.render(
+            <div><Comment
+                    date={comment.date}
+                    text={comment.text}
+                    author={comment.author} /><br/><Clickinput/></div>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+</html>
