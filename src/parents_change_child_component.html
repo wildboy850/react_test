@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+
+
+    class Child extends React.Component{
+
+        constructor(props) {
+            super(props);
+            this.state = {temperature:0};
+        }
+        childMethod() {
+            this.setState({temperature: this.state.temperature+1});
+        }
+
+        render(){
+            return (
+                    <div className="child" >
+                        <em>The child place !<b style={{color:'blue',fontSize:'30px',marginLeft:'40px'}}>{this.state.temperature}</b></em>
+                    </div>
+            );
+        }
+    }
+
+    class Parent extends React.Component{
+        usechild(){
+            //调用组件进行通信
+            this.refs.ssss.childMethod();
+        }
+        //
+        render(){
+            return (
+                    <div className="Comment">
+                        The parent place
+                        <br/>
+                        <Child ref="ssss" />
+                        <button  onClick={this.usechild.bind(this)}>click Here to change child's state</button>
+                    </div>
+            );
+        }
+
+    }
+
+
+    ReactDOM.render(
+            <div><Parent /><br/></div>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+</html>
