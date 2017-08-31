@@ -12,28 +12,12 @@
 
     var  comment = {
         date: new Date(),
-        text: 'I hope you enjoy learning React!',
+        text: 'Shit,I don\'t hope you enjoy learning React!',
         author: {
-            name: 'Hello Kitty',
+            name: 'Hello Pity',
             avatarUrl: 'http://placekitten.com/g/64/64'
         }
     };
-
-    class Clickinput extends React.Component{
-
-        handleClick () {
-            comment.text = 'he he he'
-            Comment(comment)
-        };
-
-        render() {
-            return (
-                    <button onClick={this.handleClick}>
-                        Click me
-                    </button>
-            );
-        }
-    }
 
     function formatDate(date) {
         return date.toLocaleDateString();
@@ -58,18 +42,57 @@
         );
     }
 
-    function Comment(props){
+    class Clickinput extends React.Component{
+        constructor(props) {
+            super(props);
+            this.handleClick = this.handleClick.bind(this);
+        }
+        handleClick(e){
+            //调用父组件传递过来的函数
+            this.props.onTemperateChange('the Text has been changed!');
+        }
+
+        render() {
+            var text = this.props.text;
             return (
-                    <div className="Comment">
-                        <UserInfo user={props.author} />
-                        <div className="Comment-text">
-                            {props.text}
-                        </div>
-                        <div className="Comment-date">
-                            {formatDate(props.date)}
-                        </div>
+                    <div>
+                        <label>{text}</label>
+                        <button onClick={this.handleClick}>
+                            Click here to change the text!
+                        </button>
                     </div>
             );
+        }
+    }
+
+    class Comment extends React.Component{
+        constructor(props) {
+            super(props);
+            this.state = {author: props.author,text:props.text,date:props.date};
+        }
+
+        //父组件传递给子组件的改变state的函数
+        xxx(_str) {
+            this.setState({text:_str});
+        }
+
+        //给子组件传递函数时使用ES6新特性箭头函数=>()
+        render(){
+            return (
+                    <div className="Comment">
+                        <UserInfo user={this.state.author}/>
+                        <div className="Comment-text">
+                            {this.state.text}
+                        </div>
+                        <div className="Comment-date">
+                            {formatDate(this.state.date)}
+                        </div>
+                        <br/>
+                        <Clickinput onTemperateChange={msg => {this.xxx(msg)}} text={this.state.text}/>
+                    </div>
+            );
+        }
+
     }
 
 
@@ -77,7 +100,7 @@
             <div><Comment
                     date={comment.date}
                     text={comment.text}
-                    author={comment.author} /><br/><Clickinput/></div>,
+                    author={comment.author} /><br/></div>,
         document.getElementById('root')
     );
 </script>
